@@ -5,7 +5,7 @@
  * Analyse the Runtime from the Function foo
  *
  * Result = O(n) => Linear
- * 
+ *
  * It's just one Loop.
  */
 
