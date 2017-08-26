@@ -13,12 +13,13 @@
 #include <cstdlib>
 #include "../myFunctions/functions.h"
 
+
 using namespace std;
 
 class StringUtil {
 public:
-    unsigned int position = 0;
-    unsigned int counter = 0;
+    unsigned long long position = 0;
+    unsigned long long counter = 0;
     bool moreThenOnce = false;
 
     StringUtil(unsigned int);
@@ -84,7 +85,7 @@ string createString(unsigned int size) {
 
 int main() {
 
-    string test = createString(500000000);
+    string test = createString(100000000);
     clock_t start, stop;
 
     for (int i = 0; i < 5; i++) {
@@ -102,3 +103,4 @@ int main() {
 
     return 0;
 }
+
