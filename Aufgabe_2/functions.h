@@ -4,10 +4,7 @@
  * My own Functions
  */
 
-#include <iostream>
 #include <cstdlib>
-
-using namespace std;
 
 #ifndef AUFGABE_1_FUNCTIONS_H
 #define AUFGABE_1_FUNCTIONS_H
@@ -19,20 +16,13 @@ using namespace std;
  * @param max
  * @param min
 **/
-void fillThisArray(int *array, int SIZE_OF_ARRAY, int max = 20000, int min = 1) {
+
+template <class T, class I = T>
+
+void fillThisArray(T *array, int SIZE_OF_ARRAY, I max = 20000, I min = 1) {
     //Fill Array with Numbers
     for (int i = 0; i < SIZE_OF_ARRAY; ++i) {
-        array[i] = rand() % (max+1-min) + min;
-    }
-}
-
-//Overload for dataType long
-void fillThisArray(long *array, long SIZE_OF_ARRAY, long max = 20000, long min = 1) {
-    //Fill Array with Numbers
-    long counter = 1;
-    for (long i = 0; i < SIZE_OF_ARRAY; i++) {
-        array[i] = (long)(rand() % (max-min) + min);
-        counter *= array[i];
+        array[i] = ((T)(rand() % (int)(max+1-min)) + min);
     }
 }
 

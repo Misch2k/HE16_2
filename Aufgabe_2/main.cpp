@@ -11,9 +11,9 @@
  */
 
 #include <iostream>
-//ctime => time counter
+// ctime => time counter
 #include <ctime>
-//functions.h => irrelevant functions for this project
+// functions.h => irrelevant functions for this project
 #include "functions.h"
 
 
@@ -30,27 +30,24 @@ public:
      */
     static long *multiplyArrayValues(const long *values, const int ARRAY_SIZE) {
         static long *product = new long[ARRAY_SIZE];
-        static long *product2 = new long[ARRAY_SIZE];
 
-        //Aufwärts Multiplizieren
+        // temp has the multiplication of all values before (couted up).
+        // Save it in the position of the array
         long temp = 1;
         for (int i = 0; i < ARRAY_SIZE; ++i) {
             product[i] = temp;
             temp *= values[i];
         }
 
-        //Abwärts Multiplizieren
+        // temp has the factor of all values before (counted down)
+        // Multiply it with the value in the product[i] position and product has the multiplication of all values excluded itself.
         temp = 1;
         for (int i = ARRAY_SIZE - 1; i >= 0; --i) {
-            product2[i] = temp;
+            product[i] *= temp;
             temp *= values[i];
         }
 
-        //Beide Arrays Miteinander Multiplizieren
-        for (int i = 0; i < ARRAY_SIZE; ++i) {
-            product[i] = product[i] * product2[i];
-        }
-        delete[] product2;
+        // Return the address of product array
         return product;
     };
 
@@ -59,13 +56,14 @@ public:
 int main() {
 
     //Initialize the testArray and fill with Numbers
-    // SIZE can't be bigger then 30 with numbers from 1 - 10 (It will return 0)
-    long SIZE = 40;
+    long SIZE = 5;
     long testArray[SIZE];
-    fillThisArray(testArray, SIZE, 10);
+    fillThisArray<long>(testArray, SIZE , 10);
 
-    //checkSum to Check that no number in the Array was 0
-    long checkSum = 1;
+    cout << "Testarray before" << endl;
+    for (int i = 0; i < SIZE; ++i) {
+        cout << "Array [" << i << "] = " << testArray[i] << endl;
+    }
 
     //Pointer where the Array is saved in
     long *output;
@@ -78,12 +76,12 @@ int main() {
     output = ArrayUtil::multiplyArrayValues(testArray, SIZE);
     stop = clock();
 
-    for (long i = 0; i < SIZE; ++i) {
-        checkSum += output[i];
+    cout << "Testarray after" << endl;
+    for (int i = 0; i < SIZE; ++i) {
+        cout << "Array [" << i << "] = " << output[i] << endl;
     }
 
-    cout << "Runtime = " << (double) (stop - start) / CLOCKS_PER_SEC;
-    cout << "Checksum = " << checkSum << endl;
+    cout << "Runtime ArrayUtil = " << (double) (stop - start) / CLOCKS_PER_SEC;
 
     delete[]output;
 
