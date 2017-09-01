@@ -10,94 +10,60 @@
 
 #include <iostream>
 #include <ctime>
-#include <cstdlib>
-#include "../myFunctions/functions.h"
-
 
 using namespace std;
 
+
 class StringUtil {
 public:
-    unsigned long long position = 0;
-    unsigned long long counter = 0;
-    bool moreThenOnce = false;
+    static bool checkUniqueness(string);
 
-    StringUtil(unsigned int);
-
-    void update();
-
-    static bool checkUniqueness2(string);
 };
 
-StringUtil::StringUtil(unsigned int max) {
-    this->position = max;
-    this->counter = 0;
-}
+bool StringUtil::checkUniqueness(string s) {
 
+    //Full ASCII table to count chars
+    int ray[256]{0};
 
-void StringUtil::update() {
-    this->counter++;
-    if (this->counter > 1) {
-        moreThenOnce = true;
+    for (unsigned int i = 0; i < s.length(); ++i) {
+        // Increment the (int) value of this char
+        // + 128 to fix the negative value of casted char
+        // Check if letter comes the second time
+        // return false when it happens
+        if(++ray[((int)s.at(i))+128] > 1) return false;
     }
+
+    // when nothing is double return true
+    return true;
 };
 
-
-
-bool StringUtil::checkUniqueness2(string s) {
-    StringUtil alphabet[26](s.length()+1);
-
-    for (unsigned int i = 0; i < s.length(); i++) {
-        if (alphabet[s.at(i) - 'A'].moreThenOnce) continue;
-        int index = s.at(i) - 'A';
-        alphabet[index].update();
-        if (i < alphabet[index].position) {
-            alphabet[index].position = i;
-        }
-    }
-
-    int temp = -1;
-    unsigned int temp2 = s.length() + 1;
-
-    for (int i = 0; i < 26; i++) {
-        if (alphabet[i].counter == 1 && alphabet[i].position < temp2) {
-            temp = i;
-            temp2 = alphabet[i].position;
-        }
-
-    }
-    cout << "Buchstabe : " << (char) (temp + 'A') << endl;
-    return temp != -1;
-
-
-}
-
-
-string createString(unsigned int size) {
-    string text = "";
-    for (unsigned int i = 0; i < size; i++) {
-        text += ('A' + rand() % 25);
-    }
-    text += "ZPPDLJFSDLFJK";
-
-    return text;
-}
 
 int main() {
 
-    string test = createString(100000000);
+    // Create a String with each ASCII letter inside.
+    string text = "";
+    for (unsigned int i = 0; i < 255; i++) {
+        text += (char)(i+1);
+    }
+
+    // Type in a Letter to get it doubled
+    text += "1";
+
+    // For time capture
     clock_t start, stop;
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 200; i++) {
 
+        // Time capture
         start = clock();
 
-        StringUtil::checkUniqueness2(test) ? cout << "Unique" << endl : cout << "Not unique" << endl;
+        StringUtil::checkUniqueness(text) ? cout << "Unique" << endl : cout << "Not unique" << endl;
 
         stop = clock();
 
+        // Calculate the runtime of this function
         double time = (double) (stop - start) / CLOCKS_PER_SEC;
-        cout << "Runtime Analyse 2 = " << time << endl;
+        cout << "Runtime Analyse (Durchgang: " << i+1 << ") => " << time << endl;
 
     }
 

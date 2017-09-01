@@ -56,7 +56,7 @@ public:
 int main() {
 
     //Initialize the testArray and fill with Numbers
-    long SIZE = 5;
+    long SIZE = 30;
     long testArray[SIZE];
     fillThisArray<long>(testArray, SIZE , 10);
 
