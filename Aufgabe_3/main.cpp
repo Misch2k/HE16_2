@@ -30,7 +30,7 @@ bool StringUtil::checkUniqueness(string s) {
         // + 128 to fix the negative value of casted char
         // Check if letter comes the second time
         // return false when it happens
-        if(++ray[((int)s.at(i))+128] > 1) return false;
+        if(++ray[((unsigned char)s.at(i))+128] > 1) return false;
     }
 
     // when nothing is double return true
@@ -41,23 +41,26 @@ bool StringUtil::checkUniqueness(string s) {
 int main() {
 
     // Create a String with each ASCII letter inside.
-    string text = "";
-    for (unsigned int i = 0; i < 255; i++) {
+    string text = "ä";
+
+    /*
+     * for (unsigned int i = 0; i < 255; i++) {
         text += (char)(i+1);
     }
+     */
 
     // Type in a Letter to get it doubled
-    text += "1";
+    text += "";
 
     // For time capture
     clock_t start, stop;
 
-    for (int i = 0; i < 200; i++) {
+    for (int i = 0; i < 1; i++) {
 
         // Time capture
         start = clock();
 
-        StringUtil::checkUniqueness(text) ? cout << "Unique" << endl : cout << "Not unique" << endl;
+        cout << (StringUtil::checkUniqueness(text) ? "Unique\n" : "Not unique\n");
 
         stop = clock();
 

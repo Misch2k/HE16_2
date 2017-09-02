@@ -36,6 +36,20 @@ void fillThisArray(long *array, long SIZE_OF_ARRAY, long max = 20000, long min =
     }
 }
 
+template <class T>
+void print_r(const T *ray, int SIZE, int step = 1){
+        cout << "Array : " << endl;
+    for (int i = 0; i < SIZE; i += step) {
+        cout << i << " => "<< ray[i] << endl;
+    }
+}
+
+void print_runtime(const clock_t start, const clock_t stop = clock(), int SIZE = 0){
+    if(SIZE != 0){
+        cout << "Array SIZE = " << SIZE << endl;
+    }
+    cout << "Runtime = " << (double)(stop-start)/CLOCKS_PER_SEC;
+}
 #endif //AUFGABE_1_FUNCTIONS_H
 
 

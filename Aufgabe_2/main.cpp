@@ -29,7 +29,7 @@ public:
      * @return
      */
     static long *multiplyArrayValues(const long *values, const int ARRAY_SIZE) {
-        static long *product = new long[ARRAY_SIZE];
+        long *product = new long[ARRAY_SIZE];
 
         // temp has the multiplication of all values before (couted up).
         // Save it in the position of the array
@@ -56,9 +56,9 @@ public:
 int main() {
 
     //Initialize the testArray and fill with Numbers
-    long SIZE = 30;
+    long SIZE = 100;
     long testArray[SIZE];
-    fillThisArray<long>(testArray, SIZE , 10);
+    fillThisArray<long>(testArray, SIZE , 50);
 
     cout << "Testarray before" << endl;
     for (int i = 0; i < SIZE; ++i) {
