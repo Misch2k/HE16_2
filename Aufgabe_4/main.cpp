@@ -30,6 +30,8 @@
 
 #include <iostream>
 #include <ctime>
+
+// My functions (to fill arrays with numbers, array print function and print_runtime function
 #include "../myFunctions/functions.h"
 
 // Class Trader.h
@@ -45,12 +47,16 @@ int main() {
     // 1730 - 900 = Minutes per day
     const int SIZE = 1730-900;
     int stockValues[SIZE];
+    int testStockFall[10]{20,18,16,14,12,10,8,6,4,2};
+    int testStockRise[10]{2,4,6,8,10,12,14,16,18,20};
 
     // Fill the Array with random numbers between 1000-500
-    fillThisArray(stockValues, SIZE);
+    fillThisArray(stockValues, SIZE, 190, 150);
 
-    // To print the Array
-    print_r<int>(stockValues, SIZE, 30);
+    // Test the method
+    //cout << "TestArray (only fall) = " << Trader::calculateMaxProfit(testStockFall, 10) << endl;
+    //cout << "TestArray (only rise) = " << Trader::calculateMaxProfit(testStockRise, 10) << endl;
+
 
     clock_t start;
     start = clock();
@@ -58,7 +64,7 @@ int main() {
     cout << Trader::calculateMaxProfit(stockValues, SIZE) << endl;
 
 
-    // Print the runtime. Needs only Start Value (stock value has Default clock() as value
+    // Print the runtime. Needs only Start Value (Function has a second parameter with clock() as default value
     print_runtime(start);
 
     return 0;

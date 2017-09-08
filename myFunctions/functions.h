@@ -36,6 +36,12 @@ void fillThisArray(long *array, long SIZE_OF_ARRAY, long max = 20000, long min =
     }
 }
 
+void addLetterToString(string * s, int SIZE){
+    for (int i = 0; i < SIZE; ++i) {
+        *s += (char)(rand()%26 + 'a');
+    }
+}
+
 template <class T>
 void print_r(const T *ray, int SIZE, int step = 1){
         cout << "Array : " << endl;

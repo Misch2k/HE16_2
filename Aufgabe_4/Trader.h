@@ -5,31 +5,43 @@
 #ifndef AUFGABE4_TRADER_H
 #define AUFGABE4_TRADER_H
 
+struct StockValue {
+    int value;
+    int position;
+};
+
+
 class Trader {
 public:
     static int calculateMaxProfit(const int *values, const int ARRAY_SIZE);
 };
 
-
+/**
+ * Calculate the max difference between two values. Count only forward.
+ * @param values
+ * @param ARRAY_SIZE
+ * @return
+ */
 int Trader::calculateMaxProfit(const int *values, const int ARRAY_SIZE) {
-    int *stock = new int [ARRAY_SIZE];
 
-    for (int i = ARRAY_SIZE-1; i >= 0; --i) {
-        stock[i] = 1;
-    }
+    // Initialize both temp variable with a default value from array
+    int minValue = values[0];
+    int maxDiff = values[1] - values[0];
 
-    int maxWin(values[1]-values[0]);
-
-    for (int i = 0; i < ARRAY_SIZE-1; ++i) {
-        for (int j = i+1; j < ARRAY_SIZE; ++j) {
-            if(values[j]-values[i] > maxWin){
-                maxWin = values[j]-values[i];
-            }
+    // First if: Check the diff between the minvalue and actual value. When higher save it
+    // Second if: Check if the actual value is smaller then one before.
+    for (int i = 1; i < ARRAY_SIZE; ++i) {
+        if ((values[i] - minValue) > maxDiff) {
+            maxDiff = (values[i] - minValue);
+        };
+        if (values[i] < minValue) {
+            minValue = values[i];
         }
     }
 
-    delete [] stock;
-    return maxWin;
+    return maxDiff;
+
 };
+
 
 #endif //AUFGABE4_TRADER_H
