@@ -6,8 +6,8 @@
  *
  *  In dieser Aufgabe soll eine Methode implementiert werden,
  *  welche als Parameter zwei Strings enthält.
- *  Die Methode liefert den Wert true, falls diese beiden
- *  Strings Anagramme sind. Ansonsten false.
+ *  Die Methode gibt true zurück, falls diese beiden
+ *  Strings Anagramme sind, sonst false.
  *
  *  class ArrayUtil {
  *  public:
@@ -79,11 +79,11 @@ int main() {
     string test2 = "AAAAAAA CCCCC D EEEEE G H IIIIIII LLLL MM NNNNNNNNN OOOO PP Q RR S TTTTT UUUUU";
 
     // With long strings
-    //addLetterToString(&test, 5000000);
-    //test2 = test;
+    // addLetterToString(&test, 5000000);
+    // test2 = test;
 
 
-    clock_t start, stop;
+    clock_t start;
 
     start = clock();
 
