@@ -63,7 +63,7 @@ int ArrayUtil2::highestProduct(int *values, const int ARRAY_SIZE) {
     }
 
     if(result < 0){
-        return result *= hasZero;
+        return result * hasZero;
     }else
         return result;
 }

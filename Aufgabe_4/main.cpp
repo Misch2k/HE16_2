@@ -47,15 +47,15 @@ int main() {
     // 1730 - 900 = Minutes per day
     const int SIZE = 1730-900;
     int stockValues[SIZE];
-    int testStockFall[10]{20,18,16,14,12,10,8,6,4,2};
+    int testStockFall[10]{18,17,16,15,14,13,12,11,10,9};
     int testStockRise[10]{2,4,6,8,10,12,14,16,18,20};
 
     // Fill the Array with random numbers between 1000-500
     fillThisArray(stockValues, SIZE, 190, 150);
 
     // Test the method
-    //cout << "TestArray (only fall) = " << Trader::calculateMaxProfit(testStockFall, 10) << endl;
-    //cout << "TestArray (only rise) = " << Trader::calculateMaxProfit(testStockRise, 10) << endl;
+    cout << "TestArray (only fall) = " << Trader::calculateMaxProfit(testStockFall, 10) << endl;
+    cout << "TestArray (only rise) = " << Trader::calculateMaxProfit(testStockRise, 10) << endl;
 
 
     clock_t start;

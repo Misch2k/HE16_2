@@ -44,7 +44,7 @@ bool ArrayUtil::anagramCheck(string s1, string s2) {
         }
     }
 
-    // Convert all chars to lowercase ignore everything witch is not a letter.
+    // Convert all chars to uppercase ignore everything witch is not a letter.
     // Increase value at char position from String 1
     // Decrease value at char position from String 2
     for (unsigned int i = 0; i < s1.length(); ++i) {
@@ -79,8 +79,8 @@ int main() {
     string test2 = "AAAAAAA CCCCC D EEEEE G H IIIIIII LLLL MM NNNNNNNNN OOOO PP Q RR S TTTTT UUUUU";
 
     // With long strings
-    // addLetterToString(&test, 5000000);
-    // test2 = test;
+    //addLetterToString(&test, 5000000);
+    //test2 = test;
 
 
     clock_t start;
