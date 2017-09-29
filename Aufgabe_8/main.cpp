@@ -44,12 +44,6 @@ bool StringUtil::isPalindrome(string input) {
 
 void StringUtil::checkIfPalindrome(string input, bool &result) {
 
-    // cout << "Result = " << (result ? "true" : "false") << endl;
-    // cout << "Input = " << input << endl;
-    // cout << "Length = " << input.length() << endl;
-    // cout << "First letter = " << *input.begin() << endl;
-    // cout << "Last letter = " << *input.rbegin() << endl;
-
     if (result) {
         if (input.length() > 1) {
             if (*input.begin() == *input.rbegin()) {
@@ -69,16 +63,8 @@ int main() {
 
     string testString = "Trug Tim eine so helle Hose nie mit Gurt?";
 
-    /*string testString = "";
-
-    for (int i = 0; i < 50000; ++i) {
-        testString += 'a';
-    }
-    cout << testString.length();
-*/
-
     start = clock();
-    StringUtil::isPalindrome(testString) ? cout << "Palindrome" : cout << "no Palindrome" << endl;
+    StringUtil::isPalindrome(testString) ? cout << "Palindrome" << endl : cout << "no Palindrome" << endl;
     print_runtime(start);
 
     return 0;
