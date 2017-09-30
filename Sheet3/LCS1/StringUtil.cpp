@@ -4,6 +4,7 @@
 
 #include "StringUtil.h"
 #include <iostream>
+
 using namespace std;
 
 string StringUtil::lcs(string first, string second) {
@@ -20,22 +21,22 @@ string StringUtil::lcs(string first, string second) {
     // When a letter matches, it compares all following letter
     while (firstIndex < first.length()) {
         while (secondIndex < second.length()) {
-            counter++;
+            //counter++;
             count = 0;
             if (first[firstIndex] == second[secondIndex]) {
                 if (first[firstIndex + stringLength] == second[secondIndex + stringLength]) {
                     while ((firstIndex + count < first.length() && secondIndex + count < second.length()) &&
                            (first[firstIndex + count] == second[secondIndex + count])) {
                         count++;
-                        whileCounter++;
+                        //whileCounter++;
                     };
                     if (count > stringLength) {
                         stringLength = count;
                         stringStart = firstIndex;
                     }
-                    secondIndex += count +1;
+                    secondIndex += count + 1;
                 } else {
-                    secondIndex += stringLength+1;
+                    secondIndex += stringLength + 1;
                 }
             } else {
                 secondIndex++;
@@ -46,8 +47,8 @@ string StringUtil::lcs(string first, string second) {
     }
 
 
-    cout << "Max durchläufe = " << counter + whileCounter << endl;
-    cout << "string1.length() * string2.length() = " << first.length() * second.length() << endl;
+    //cout << "Max durchläufe = " << counter + whileCounter << endl;
+    //cout << "string1.length() * string2.length() = " << first.length() * second.length() << endl;
 
     return first.substr(stringStart, stringLength);
 };

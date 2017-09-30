@@ -1,7 +1,14 @@
+/*
+ * Aufgabe 9 - Längster Substring
+ *
+ * Eine Methode welche den längsten Substing aus zwei Substrings zurückgiebt.
+ */
+
 #include <iostream>
 #include "StringUtil.h"
 #include <fstream>
 #include <ctime>
+#include <cstdlib>
 
 using namespace std;
 
@@ -30,15 +37,16 @@ int main() {
     string testString1 = "";
     string testString2 = "";
 
-    //Abraham Lincoln vs. Freimaurer (WIKI)
+    //Putin vs. Trump (WIKI)
 
+    loadFromFileToString("../Putin.txt", testString1);
+    loadFromFileToString("../DonaldTrump.txt", testString2);
+
+
+    //Audi vs. Tesla (WIKI)
+    /*
     loadFromFileToString("../Audi.txt", testString1);
     loadFromFileToString("../Tesla.txt", testString2);
-
-    //Putin vs. Trump (WIKI)
-    /*
-    loadFromFileToString("../DonaldTrump", testString1);
-    loadFromFileToString("../Putin.txt", testString2);
     */
 
     //Abraham Lincoln vs. Freimaurer (WIKI)
@@ -48,15 +56,16 @@ int main() {
     */
 
     // Fill String with Random Numbers
-    /*
-    fillString(testString1, 10000);
-    fillString(testString2, 100000);
-    */
+
+    //fillString(testString1, 10000);
+    //fillString(testString2, 100000);
+
 
 
     start = clock();
     cout << "Längster String = " << StringUtil::lcs(testString1, testString2) << endl;
     stop = clock();
+    cout << "Runtime => " << (double) (stop - start) / CLOCKS_PER_SEC << endl;
 
     cout << "String1 length => " << testString1.length() << endl;
     cout << "String2 length => " << testString2.length() << endl;

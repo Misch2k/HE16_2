@@ -1,8 +1,14 @@
+/*
+ * Aufgabe 9 - Längster Substring
+ *
+ * Eine Methode welche den längsten Substing aus zwei Substrings zurückgiebt.
+ */
+
+
 #include <iostream>
 #include "StringUtil.h"
 #include <fstream>
 #include <ctime>
-#include <cstdlib>
 
 using namespace std;
 
@@ -33,8 +39,8 @@ int main() {
 
     //Abraham Lincoln vs. Freimaurer (WIKI)
 
-    loadFromFileToString("../Putin.txt", testString1);
-    loadFromFileToString("../DonaldTrump.txt", testString2);
+    loadFromFileToString("../Audi.txt", testString1);
+    loadFromFileToString("../Tesla.txt", testString2);
 
     //Putin vs. Trump (WIKI)
     /*

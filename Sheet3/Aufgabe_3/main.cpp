@@ -1,5 +1,5 @@
 /*
- * Aufgabe 10 - Längster Substring
+ * Aufgabe 9 - Längster Substring
  *
  * Eine Methode welche den längsten Substing aus zwei Substrings zurückgiebt.
  */
