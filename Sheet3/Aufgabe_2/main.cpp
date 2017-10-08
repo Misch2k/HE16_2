@@ -13,7 +13,7 @@
 
 #include <iostream>
 #include <ctime>
-#include "../myFunctions/functions.h"
+#include "../../myFunctions/functions.h"
 
 using namespace std;
 

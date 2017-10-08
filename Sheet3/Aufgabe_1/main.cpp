@@ -25,15 +25,15 @@
 #include <iostream>
 #include <ctime>
 #include "CoinCombination.h"
-#include "../myFunctions/functions.h"
+#include "../../myFunctions/functions.h"
 
 
 using namespace std;
 
 
 int main() {
-    double coins[]{5, 2, 1, 0.5, 0.2, 0.1, 0.05};
-    int numberOfCoins = 7;
+    double coins[]{5, 2, 1, 0.5, 0.25, 0.2, 0.1, 0.05};
+    int numberOfCoins = 8;
     double sumOfMoney = 0;
 
     time_t start;

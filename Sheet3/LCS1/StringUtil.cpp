@@ -52,3 +52,19 @@ string StringUtil::lcs(string first, string second) {
 
     return first.substr(stringStart, stringLength);
 };
+
+string StringUtil::lcs2(string first, string second) {
+    int matrix;
+    matrix = new int [first.size()];
+    for (int k = 0; k < first.size(); ++k) {
+        matrix[k] = new int [second.size()];
+    }
+
+    for (int i = 0; i < first.size(); ++i) {
+        for(int j = 0; j < second.size(); j++){
+            if(first[i] == second[j]){
+                matrix[i][j] += matrix[i-1][j-1];
+            }
+        }
+    }
+};

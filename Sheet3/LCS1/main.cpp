@@ -34,14 +34,14 @@ void loadFromFileToString(string filePath, string &toFill) {
 int main() {
     time_t start, stop;
 
-    string testString1 = "";
-    string testString2 = "";
+    string testString1 = "adsfa";
+    string testString2 = "adfadsf";
 
     //Putin vs. Trump (WIKI)
-
+/*
     loadFromFileToString("../Putin.txt", testString1);
     loadFromFileToString("../DonaldTrump.txt", testString2);
-
+*/
 
     //Audi vs. Tesla (WIKI)
     /*
@@ -63,7 +63,7 @@ int main() {
 
 
     start = clock();
-    cout << "Längster String = " << StringUtil::lcs(testString1, testString2) << endl;
+    cout << "Längster String = " << StringUtil::lcs2(testString1, testString2) << endl;
     stop = clock();
     cout << "Runtime => " << (double) (stop - start) / CLOCKS_PER_SEC << endl;
 

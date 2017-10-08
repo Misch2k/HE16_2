@@ -12,6 +12,7 @@ using namespace std;
 class StringUtil {
 public:
     static string lcs(string first, string second);
+    static string lcs2(string first, string second);
 };
 
 
