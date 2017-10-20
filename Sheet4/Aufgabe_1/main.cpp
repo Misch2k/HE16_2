@@ -41,7 +41,7 @@ char StringUtil::getLonelyElement(string input) {
 
 
 int main() {
-    string testString = "hallowelthallowel";
+    string testString = "halloweltlewollah";
 
     cout << StringUtil::getLonelyElement(testString);
 }

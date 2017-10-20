@@ -43,6 +43,7 @@ public:
     }
 };
 
+
 class ArrayUtil {
 public:
     static Result analyseArray(vector<int> input);
@@ -74,6 +75,7 @@ int main() {
     for (int i = 0; i < 1562; ++i) {
         numbers.push_back(rand()%100 - 50);
     }
+
 
     Result obj = ArrayUtil::analyseArray(numbers);
 
