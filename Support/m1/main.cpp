@@ -84,14 +84,7 @@ int main()
 {
     ArrayUtil<int> obj;
     float nPositiv(0.0),nZero(0.0),nNegative(0.0);
-    vector<int> zahlen;
-    zahlen.push_back(1);
-    zahlen.push_back(10);
-    zahlen.push_back(0);
-    zahlen.push_back(-6);
-    zahlen.push_back(-9);
-    zahlen.push_back(2);
-    zahlen.push_back(5);
+    vector<int> zahlen{1, 10, 0, -6, -9, 2, 5};
 
 
     cout << "Input: 1, 10, 0, -6, -9, 2, 5" << endl;
