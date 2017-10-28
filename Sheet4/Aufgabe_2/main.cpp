@@ -23,7 +23,6 @@
 
 #include <iostream>
 #include <vector>
-#include <cstdlib>
 
 using namespace std;
 
@@ -41,6 +40,21 @@ public:
 
         return stream;
     }
+
+
+    Result operator=(const Result &obj) {
+        cout << "copy" << endl;
+        return obj;
+    }
+    Result(){
+        cout << "constr" << endl;
+    };
+    Result(const Result &obj){
+        cout << "copy2" << endl;
+        nPositive = obj.nPositive;
+        nNegative = obj.nNegative;
+        nZero = obj.nZero;
+    }
 };
 
 
@@ -51,6 +65,7 @@ public:
 
 Result ArrayUtil::analyseArray(vector<int> input) {
     Result value;
+    cout << &value << endl;
 
     value.nPositive = 0;
     value.nZero = 0;
@@ -78,7 +93,7 @@ int main() {
 
 
     Result obj = ArrayUtil::analyseArray(numbers);
-
+    cout << &obj << endl;
     cout << obj << endl;
 
     return 0;

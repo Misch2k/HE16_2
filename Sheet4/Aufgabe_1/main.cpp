@@ -23,6 +23,7 @@ public:
     static char getLonelyElement(string input);
 };
 
+
 char StringUtil::getLonelyElement(string input) {
     int counter[255]{0};
 

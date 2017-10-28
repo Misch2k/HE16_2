@@ -25,4 +25,3 @@ void fillThisArray(int *array, int SIZE_OF_ARRAY, int max = 20000, int min = 1) 
 
 #endif //AUFGABE_1_FUNCTIONS_H
 
-
