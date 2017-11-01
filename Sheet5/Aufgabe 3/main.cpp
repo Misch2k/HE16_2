@@ -1,7 +1,7 @@
 #include <iostream>
-#include <cstdlib>
 #include <vector>
-#include <map>
+#include <ctime>
+#include "../../myFunctions/functions.h"
 using namespace std;
 
 class TreeUtil{
@@ -13,20 +13,17 @@ public:
 void TreeUtil::printMaximumPath(vector<int> values){
     pair<int,string> result(sumOfChildren(values, values.size(), 0));
     cout << result.first << " " << result.second << endl;
-    cout << "Resultat: " << endl;
-    cout << values[0] << " ";
-    int j = 0;
-    for(int i = 0; i < result.second.size(); i++){
+    cout << "Resultat: ";
+    for(int i(0), j(0); i <= result.second.size(); i++){
+        cout << values[j] << " ";
         if(result.second[i] == 'l'){
             j = 2*j+1;
         }else{
             j = 2*j+2;
         }
-        cout << values[j] << " ";
     }
     cout << "(Dieser Pfad ergibt die maximale Summe " << result.first << ")" << endl;
 }
-
 
 pair<int,string> TreeUtil::sumOfChildren(vector<int> &values, int max, int i){
     if(2*i+1 >= max) return make_pair(values[i], "");
@@ -40,7 +37,11 @@ pair<int,string> TreeUtil::sumOfChildren(vector<int> &values, int max, int i){
 
 int main() {
     vector<int> values = {40,100,200,20,40,70,80,50,10,60};
+    for(int i = 0; i < 10000000; i++){
+        values.push_back(rand()%1000);
+    }
+    time_t start = clock();
     TreeUtil::printMaximumPath(values);
-
+    print_runtime(start);
     return 0;
 }
