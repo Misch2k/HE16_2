@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <iomanip>
+#include <math.h>
 
 using namespace std;
 
@@ -12,8 +14,11 @@ public:
     int value;
 
     Node(int value);
+
     Node(int value, Node *parent);
+
     ~Node();
+
     static int counter;
 };
 
@@ -27,7 +32,7 @@ Node::Node(int value, Node *parent) : value(value), parent(parent), left(0), rig
     counter++;
 };
 
-Node::~Node(){
+Node::~Node() {
     delete left;
     delete right;
     counter--;
@@ -56,18 +61,94 @@ public:
     void postOrder();
     bool hasRoot();
     int getRootVal() const;
+    void printTree();
+    void printTree(Node *root, char dir, int height, int par, int val, int **matrix, int r_height, int r_width);
 };
+
+void BinaryTree::printTree() {
+    int t_width = (int) pow(2, (double) height() - 1) + 1;
+    int t_height = height() + 1;
+    int **ray = new int *[t_width];
+    for (int i = 0; i < t_width; i++) {
+        ray[i] = new int[t_height]{0};
+    }
+    printTree(root, 'm', height(), 0, 0, ray, t_height, t_width);
+
+
+    bool isZero = true;
+    int x_offset = 0;
+    for (int y = 0; y < t_width; y++) {
+        for (int x = 0; x < t_height - 1; x++) {
+            if (ray[x][y] != 0) {
+                isZero = false;
+                break;
+            }
+        }
+        if(!isZero){
+            break;
+        }
+        x_offset++;
+    }
+
+
+    for (int y = 0; y < t_height; y++) {
+        for (int x = x_offset; x < t_width; x++) {
+            if (ray[x][y] != 0) {
+                cout << setw(3) << ray[x][y];
+            } else {
+                cout << setw(3) << "";
+            }
+        }
+        cout << endl;
+    }
+    cout << endl;
+    cout << endl;
+
+    for (int i = 0; i < t_width; i++) {
+        delete ray[i];
+    }
+    delete ray;
+
+}
+
+void
+BinaryTree::printTree(Node *node, char dir, int height, int par, int val, int **matrix, int r_height, int r_width) {
+    if (val >= r_height) return;
+    // root
+    if (dir == 'm') {
+        par = r_width / 2;
+        matrix[par][val] = node->value;
+    }
+    // left
+    if (dir == 'l') {
+        matrix[--par][val] = node->value;
+    }
+    // right
+    if (dir == 'r') {
+        matrix[++par][val] = node->value;
+    }
+    val++;
+    if (node->left != 0) {
+        printTree(node->left, 'l', height, par, val, matrix, r_height, r_width);
+    }
+    if (node->right != 0) {
+        printTree(node->right, 'r', height, par, val, matrix, r_height, r_width);
+    }
+
+}
+
 
 bool BinaryTree::hasRoot() {
     return root != 0;
 };
 
 int BinaryTree::getRootVal() const {
-    if(root != 0){
+    if (root != 0) {
         return root->value;
     }
     return 0;
 };
+
 void BinaryTree::insert(int v, Node *n) {
     if (v < n->value) {
         // left
@@ -96,7 +177,7 @@ void BinaryTree::insert(int v) {
 
 void BinaryTree::remove(int value) {
     Node *temp = findNode(value);
-    if (temp == 0){
+    if (temp == 0) {
         cout << "Value: " << value << " : NOT FOUND" << endl;
         return;
     }
@@ -107,7 +188,7 @@ void BinaryTree::remove(int value) {
         if (temp->parent == 0) {
             delete root;
             root = 0;
-        }else {
+        } else {
             // Parent pointer reset
             temp->parent->left == temp ? temp->parent->left = 0 : temp->parent->right = 0;
             // Delete Node;
@@ -116,15 +197,15 @@ void BinaryTree::remove(int value) {
     } else if (right == 0) {
         temp->value = left->value;
         remove(left);
-    } else if (left == 0){
+    } else if (left == 0) {
         temp->value = right->value;
         remove(right);
-    }else{
-        if(temp->value - left->value <= right->value - temp->value){
+    } else {
+        if (temp->value - left->value <= right->value - temp->value) {
             // Left
             temp->value = left->value;
             remove(left);
-        }else{
+        } else {
             // right
             temp->value = right->value;
             remove(right);
@@ -153,22 +234,21 @@ void BinaryTree::remove(Node *temp) {
     } else if (right == 0) {
         temp->value = left->value;
         remove(left);
-    } else if (left == 0){
+    } else if (left == 0) {
         temp->value = right->value;
         remove(right);
-    }else{
-        if(temp->value - left->value <= right->value - temp->value){
+    } else {
+        if (temp->value - left->value <= right->value - temp->value) {
             // Left
             temp->value = left->value;
             remove(left);
-        }else{
+        } else {
             // right
             temp->value = right->value;
             remove(right);
         }
     }
 }
-
 
 
 Node *BinaryTree::minRight(Node *last) {
@@ -276,20 +356,25 @@ int main(int argc, char **argv) {
 
     //Aufgabe 1 - Wrong for this question. When remove 25 (root) it take 29 as a new root (value is 29 is near 25 and not 19)
     bt.insert(25);
+    bt.printTree();
     bt.insert(47);
+    bt.printTree();
+    bt.insert(50);
+    bt.printTree();
+    bt.insert(48);
+    bt.printTree();
+    bt.insert(49);
+    bt.printTree();
+    bt.insert(47);
+    bt.printTree();
     bt.insert(17);
+    bt.printTree();
     bt.insert(10);
-    bt.insert(19);
-    bt.insert(29);
-    bt.insert(26);
-    bt.insert(30);
-    bt.remove(26);
-    bt.insert(82);
+    bt.printTree();
+    bt.insert(5);
+    bt.printTree();
     bt.remove(25);
-    bt.remove(17);
-    bt.postOrder();
-
-
+    bt.printTree();
 
 
     /*

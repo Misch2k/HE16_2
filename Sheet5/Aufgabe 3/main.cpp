@@ -41,7 +41,7 @@ int main() {
         values.push_back(rand()%1000);
     }
     time_t start = clock();
-    TreeUtil::printMaximumPath(values);
+    TreeUtil::printMaximumPath(move(values));
     print_runtime(start);
     return 0;
 }
