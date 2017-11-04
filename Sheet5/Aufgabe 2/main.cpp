@@ -11,7 +11,7 @@ public:
 };
 
 bool TreeUtil::upperValues(vector<int> &values, int i, int value) {
-    if (i <= 0)return true;
+    if (i <= 0) return true;
     if (i % 2 == 0) {
         // I am the right element
         i = (i-2)/2;
@@ -22,7 +22,6 @@ bool TreeUtil::upperValues(vector<int> &values, int i, int value) {
         i = (i-1)/2;
         // values[i] = a parent element
         if (values[i] <= value) return false;
-
     }
     return upperValues(values, i, value);
 }
@@ -31,7 +30,6 @@ bool TreeUtil::isBinarySearchTree(vector<int> values) {
     for (int i = 1; i < values.size(); i++) {
         if (!upperValues(values, i, values[i])) return false;
     }
-
     return true;
 };
 

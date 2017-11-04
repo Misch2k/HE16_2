@@ -355,25 +355,11 @@ int main(int argc, char **argv) {
     }*/
 
     //Aufgabe 1 - Wrong for this question. When remove 25 (root) it take 29 as a new root (value is 29 is near 25 and not 19)
-    bt.insert(25);
-    bt.printTree();
-    bt.insert(47);
-    bt.printTree();
-    bt.insert(50);
-    bt.printTree();
-    bt.insert(48);
-    bt.printTree();
-    bt.insert(49);
-    bt.printTree();
-    bt.insert(47);
-    bt.printTree();
-    bt.insert(17);
-    bt.printTree();
-    bt.insert(10);
-    bt.printTree();
-    bt.insert(5);
-    bt.printTree();
-    bt.remove(25);
+
+    int values[] = {30, 20, 50, 2, 29, 47, 55};
+    for (int i = 0; i < 10; i++) {
+        bt.insert(values[i]);
+    }
     bt.printTree();
 
 
