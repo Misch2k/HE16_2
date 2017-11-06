@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <chrono>
 
 using namespace std;
 
@@ -56,6 +57,44 @@ void print_runtime(const clock_t start, const clock_t stop = clock(), int SIZE =
     }
     cout << "Runtime = " << (double)(stop-start)/CLOCKS_PER_SEC;
 }
+
+
+class myTime{
+public:
+    static chrono::time_point<std::chrono::_V2::system_clock>  start();
+    static void stop(chrono::time_point<std::chrono::_V2::system_clock> start_time, int time ,chrono::time_point<chrono::system_clock> end);
+};
+
+chrono::time_point<std::chrono::_V2::system_clock> myTime::start()
+{
+    return chrono::high_resolution_clock::now();
+}
+
+void myTime::stop(chrono::time_point<chrono::system_clock> start_time, int time = 0, chrono::time_point<chrono::system_clock> end=chrono::high_resolution_clock::now())
+{
+    switch(time){
+        case 1 :
+            cout << endl << "Zeit: " << std::chrono::duration_cast<chrono::nanoseconds>(end-start_time).count() << " Nanoseconds"<<endl;
+            break;
+        case 2 :
+            cout << "Zeit: " << std::chrono::duration_cast<chrono::microseconds>(end-start_time).count() << " Microseconds"<<endl;
+            break;
+        case 3 :
+            cout << "Zeit: " << std::chrono::duration_cast<chrono::milliseconds>(end-start_time).count() << " Milliseconds"<<endl;
+            break;
+        case 4 :
+            cout << "Zeit: " << std::chrono::duration_cast<chrono::seconds>(end-start_time).count() << " Seconds"<<endl;
+            break;
+        default :
+            cout << endl << "Zeit: " << std::chrono::duration_cast<chrono::nanoseconds>(end-start_time).count() << " Nanoseconds"<<endl;
+            cout << "Zeit: " << std::chrono::duration_cast<chrono::microseconds>(end-start_time).count() << " Microseconds"<<endl;
+            cout << "Zeit: " << std::chrono::duration_cast<chrono::milliseconds>(end-start_time).count() << " Milliseconds"<<endl;
+            cout << "Zeit: " << std::chrono::duration_cast<chrono::seconds>(end-start_time).count() << " Seconds"<<endl;
+            break;
+    }
+    return;
+}
+
 #endif //AUFGABE_1_FUNCTIONS_H
 
 

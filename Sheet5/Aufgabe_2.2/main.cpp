@@ -5,39 +5,40 @@
 using namespace std;
 
 class TreeUtil {
+private:
+    static bool isBinarySearchTree(vector<int> &values, int i, int value);
+
 public:
     static bool isBinarySearchTree(vector<int> values);
-
-    static bool upperValues(vector<int> &values, int i, int value);
 };
 
-bool TreeUtil::upperValues(vector<int> &values, int i, int value) {
+bool TreeUtil::isBinarySearchTree(vector<int> values) {
+    int first = 0;
+    while (2 * first + 1 < values.size() || 2 * first + 2 < values.size()) {
+        ++first;
+    }
+    for (int i = first; i < values.size(); i++) {
+        if (!isBinarySearchTree(values, i, values[i])) return false;
+    }
+    return true;
+};
+
+bool TreeUtil::isBinarySearchTree(vector<int> &values, int i, int value) {
     if (i <= 0) return true;
     if (i % 2 == 0) {
         // I am the right element
         i = (i - 2) / 2;
         // values[i] = a parent element
-        if (values[i] > value) {
-            return false;
-        }
-
+        if (values[i] > value) return false;
     } else {
         // I am the left element
         i = (i - 1) / 2;
         // values[i] = a parent element
-        if (values[i] <= value) {
-            return false;
-        }
+        if (values[i] <= value) return false;
     }
-    return upperValues(values, i, value);
+    return isBinarySearchTree(values, i, value);
 }
 
-bool TreeUtil::isBinarySearchTree(vector<int> values) {
-    for (int i = 1; i < values.size(); i++) {
-        if (!upperValues(values, i, values[i])) return false;
-    }
-    return true;
-};
 
 int main() {
     bool result;
