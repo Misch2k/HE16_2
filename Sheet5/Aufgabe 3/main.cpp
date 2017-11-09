@@ -1,18 +1,17 @@
 #include <iostream>
 #include <vector>
-#include <ctime>
 #include "../../myFunctions/functions.h"
 using namespace std;
 
 class TreeUtil{
+private:
+    static pair<int,string> sumOfChildren(vector<int> &values, int max, int i);
 public:
     static void printMaximumPath(vector<int> values);
-    static pair<int,string> sumOfChildren(vector<int> &values, int max, int i);
 };
 
 void TreeUtil::printMaximumPath(vector<int> values){
     pair<int,string> result(sumOfChildren(values, values.size(), 0));
-    cout << result.first << " " << result.second << endl;
     cout << "Resultat: ";
     for(int i(0), j(0); i <= result.second.size(); i++){
         cout << values[j] << " ";
@@ -37,7 +36,7 @@ pair<int,string> TreeUtil::sumOfChildren(vector<int> &values, int max, int i){
 
 int main() {
     vector<int> values = {40,100,200,20,40,70,80,50,10,60};
-    for(int i = 0; i < 1000000; i++){
+    for(int i = 0; i < 10000000; i++){
         values.push_back(rand()%1000);
     }
     auto start = myTime::start();
