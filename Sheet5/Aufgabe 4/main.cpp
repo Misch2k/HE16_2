@@ -1,19 +1,21 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include "../../myFunctions/functions.h"
 
 using namespace std;
 
 int calculate(string input);
 
 int calculate(string input) {
-    int multipl = 26;
-    int result = 0;
+    int multipl(26), result(0);
     vector<int> value(26);
-    transform(input.begin(), input.end(), input.begin(), ::tolower);
-    for (char letter : input) {
-        if ((int) letter - 'a' >= 0 && (int) letter - 'a' < 26) {
-            value[(int)(letter - 'a')]++;
+
+    for (char &letter : input) {
+        if (letter >= 'a' && letter <= 'z') {
+            value[(int) (letter - 'a')]++;
+        } else if (letter >= 'A' && letter <= 'Z') {
+            value[(int) (letter - 'A')]++;
         }
     }
 
@@ -24,13 +26,19 @@ int calculate(string input) {
     return result;
 };
 
-
 int main() {
-    string testCase1("ABBCCC "), testCase2("Sometimes test cases are hard to make up.");
+    string testCase1("abcdefghijklmnopqrstuvwxyz "), testCase2("Sometimes test cases are hard to make up.");
+    testCase1 = "";
+    for (int i = 0; i < 10000000; i++) {
+        testCase1 += (char) (rand() % 25 + 'a');
+    }
 
-    cout << calculate(testCase1) << endl;
+    auto start = myTime::start();
+    cout << "Stringlength: " << testCase1.size() << endl;
+    cout << "The prettiness of this string: " << calculate(testCase1) << endl;
+    myTime::stop(start, 3);
+
     cout << calculate(testCase2) << endl;
-
 
     return 0;
 }
