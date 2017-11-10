@@ -10,6 +10,12 @@ int calculate(string input);
 int calculate(string input) {
     int multipl(26), result(0);
     vector<int> value(26);
+/*
+    // c++17 loop
+    for_each(input.begin(), input.end(), [&value](char &val) {
+        val >= 'a' && val <= 'z' ? value[val - 'a']++ : val >= 'A' && val <= 'Z' ? value[val - 'A']++ : val++;
+    });
+*/
 
     for (char &letter : input) {
         if (letter >= 'a' && letter <= 'z') {
@@ -20,6 +26,11 @@ int calculate(string input) {
     }
 
     sort(value.rbegin(), value.rend());
+
+    // c++17 loop
+    //for_each(value.begin(), value.end(), [&multipl, &result](int &val) { result += val * multipl--; });
+
+
     for (int &counter : value) {
         result += counter * multipl--;
     }
@@ -33,10 +44,12 @@ int main() {
         testCase1 += (char) (rand() % 25 + 'a');
     }
 
-    auto start = myTime::start();
-    cout << "Stringlength: " << testCase1.size() << endl;
-    cout << "The prettiness of this string: " << calculate(testCase1) << endl;
-    myTime::stop(start, 3);
+    for (int i = 0; i < 10; i++) {
+        auto start = myTime::start();
+        cout << "Stringlength: " << testCase1.size() << endl;
+        cout << "The prettiness of this string: " << calculate(testCase1) << endl;
+        myTime::stop(start, 3);
+    }
 
     cout << calculate(testCase2) << endl;
 
