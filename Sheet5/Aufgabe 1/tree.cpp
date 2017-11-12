@@ -31,12 +31,7 @@ Node::Node(int value, Node *parent) : value(value), parent(parent), left(0), rig
     counter++;
 };
 
-Node::~Node() {
-    delete left;
-    delete right;
-    counter--;
-};
-
+//@startuml
 class BinaryTree {
 private:
     Node *root;
@@ -80,6 +75,12 @@ public:
 
     void printTree();
 
+};
+
+Node::~Node() {
+    delete left;
+    delete right;
+    counter--;
 };
 
 void BinaryTree::printTree() {
@@ -376,7 +377,7 @@ void BinaryTree::postOrder(Node *last) {
         cout << last->value << (last == root ? "" : ", ");
     }
 }
-
+//@enduml
 int main(int argc, char **argv) {
 
     //Aufgabe 1 - Wrong for this question. When remove 25 (root) it take 29 as a new root (value is 29 is near 25 and not 19)
