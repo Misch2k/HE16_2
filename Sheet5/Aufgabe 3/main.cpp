@@ -35,8 +35,8 @@ pair<int,string> TreeUtil::sumOfChildren(vector<int> &values, int max, int i){
 
 
 int main() {
-    vector<int> values = {40,100,200,20,40,70,80,50,10,60};
-    for(int i = 0; i < 10000000; i++){
+    vector<int> values = {40,100,200,20,40,70,80,50,10,60,10,10, 10,-100};
+    for(int i = 0; i < 1000000; i++){
         values.push_back(rand()%1000);
     }
     auto start = myTime::start();
