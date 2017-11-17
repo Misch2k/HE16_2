@@ -22,7 +22,7 @@ public:
  * @return
  */
 vector<int> *SampleGraph::create(int numberOfNodes, int numberOfConnections, bool isDirected = false) {
-    vector<int> *result = new vector<int>[numberOfNodes];
+    auto *result = new vector<int>[numberOfNodes];
 
     int counter = 0;
     while (counter < numberOfConnections) {
@@ -84,7 +84,7 @@ void dfs(vector<int> *graph, int numberOfNodes, bool *visited, int currentNode) 
  * @param numberOfNodes
  */
 void dfs(vector<int> *graph, int numberOfNodes) {
-    bool *visited = new bool[numberOfNodes]{false};
+    auto *visited = new bool[numberOfNodes]{false};
 
     dfs(graph, numberOfNodes, visited, 0);
 
@@ -132,49 +132,18 @@ void bfs(vector<int> *graph, int size) {
  * @param numberOfNodes
  * @param nodeA
  * @param nodeB
- */
-bool connected(vector<int> *graph, deque<int> &values, int currentNode, int i, int search) {
-    for (int v : graph[currentNode]) {
-        if (find(values.begin(), values.end(), v) == values.end()) {
-            values.push_back(v);
-            if(v == search){
-                return true;
-            }
-        };
-    }
-    if (++i < values.size()) {
-        return connected(graph, values, values[i], i, search);
-    }
-    return false;
-}
-
-/**
- * Connected
- * @param graph
- * @param numberOfNodes
- * @param nodeA
- * @param nodeB
  * @return
  */
 bool connected(vector<int> *graph, int numberOfNodes, int nodeA, int nodeB) {
-    if(numberOfNodes < 2 || nodeA < 0 || nodeA >= numberOfNodes || nodeB < 0 || nodeB >= numberOfNodes) return false;
-    deque<int> result = {nodeA};
-    bool res = connected(graph, result, nodeA, 0, nodeB);
 
-    for(int v : result){
-        cout << v << ",";
-    }
-    cout << endl;
-
-    return res;
 }
 
 
 int main() {
     srand(15);
 
-    const int NUMBER_OF_NODES = 10000;
-    const int NUMBER_OF_CONNECTIONS = 30000;
+    const int NUMBER_OF_NODES = 17;
+    const int NUMBER_OF_CONNECTIONS = 10;
 
     vector<int> *graph = SampleGraph::create(NUMBER_OF_NODES, NUMBER_OF_CONNECTIONS);
 
@@ -188,19 +157,9 @@ int main() {
 
     cout << endl << endl;
 
-    cout << (connected(graph, NUMBER_OF_NODES, 5, 90) ? "CONNECTED" : "NOT CONNECTED") << endl;
+    //cout << (connected(graph, NUMBER_OF_NODES, 5, 13) ? "CONNECTED" : "NOT CONNECTED") << endl;
+
+
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
