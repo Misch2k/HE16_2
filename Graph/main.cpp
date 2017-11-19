@@ -1,6 +1,5 @@
 #include "graph.h"
 #include "graphutil.h"
-#include <iostream>
 #include "../myFunctions/functions.h"
 
 using namespace std;
@@ -13,7 +12,6 @@ int main(int argc, char **argv) {
     g->randomInit(4000, 4000);
     // Directed Graph
     g2->randomInit(4000, 20000, true);
-    //cout << *g << endl;
 
 
 
@@ -40,5 +38,8 @@ int main(int argc, char **argv) {
     GraphUtil::printShortestPath(g2, 9, 7, true);
     myTime::stop(start, 3);
 
+
+    delete g;
+    delete g2;
     return 0;
 }

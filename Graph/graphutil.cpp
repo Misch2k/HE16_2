@@ -1,7 +1,7 @@
 #include "graphutil.h"
-#include <algorithm>
-#include <iostream>
 #include <stack>
+#include <iostream>
+#include <algorithm>
 
 vector<DijkstraEntry> GraphUtil::dijkstra(Graph *g, int start, int end) {
     vector<DijkstraEntry> entry((unsigned int) g->getNumberOfNodes());

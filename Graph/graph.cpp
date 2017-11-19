@@ -1,15 +1,9 @@
 #include "graph.h"
-
-#include <cstdlib>
 #include <iostream>
-#include <sstream>
 #include <stack>
-#include <vector>
 #include <algorithm>
 using namespace std;
 
-Graph::Graph() {
-}
 
 void Graph::randomInit(int nNodes, int nConnections, bool directed) {
   vector<int> v;
@@ -44,8 +38,8 @@ void Graph::randomInit(int nNodes, int nConnections, bool directed) {
   }
 
   if (!directed) {
-    for (int i=0; i<weights.size(); i++) {
-      for (int j=0; j<weights.at(i).size(); j++) {
+    for (unsigned int i=0; i<weights.size(); i++) {
+      for (unsigned int j=0; j<weights.at(i).size(); j++) {
         int source = i;
         int target = neighbours.at(i).at(j);
         int weight = weights.at(i).at(j);
@@ -70,7 +64,6 @@ vector<int> Graph::getWeights(int node) {
 
 std::ostream& operator<<(std::ostream& s, const Graph & obj) {
   for (int i=0; i<obj.neighbours.size(); i++) {
-    vector<int>::iterator it;
     s << "Node " << i << "\t";
     for (int j=0; j<obj.neighbours[i].size(); j++) {
       s << obj.neighbours[i].at(j) << "(" << obj.weights[i].at(j) << "), ";
