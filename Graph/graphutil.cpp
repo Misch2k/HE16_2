@@ -10,10 +10,16 @@ vector<DijkstraEntry> GraphUtil::dijkstra(Graph *g, int start, int end) {
 }
 
 void GraphUtil::dijsktra(Graph *g, vector<DijkstraEntry> &entry, int NodeId, int end, int lastSum) {
+    // end is marked and there is no shorter path
     if (NodeId == end) return;
     entry[NodeId].node = NodeId;
     entry[NodeId].marked = true;
     auto neighbors = g->getNeighbours(NodeId);
+    auto weights = g->getWeights(NodeId);
+    auto updateEntry = [&entry, &lastSum, &neighbors, &NodeId](const int &neighbor, const int &weight){
+
+    };
+    for_each(neighbors.begin(), weights.begin(), neighbors.end(), weights.end(), updateEntry);
     for (int i = 0; i < neighbors.size(); i++) {
         if (!entry[neighbors[i]].marked && (entry[neighbors[i]].distance == -1 || entry[neighbors[i]].distance > lastSum + g->getWeights(NodeId)[i])) {
             entry[neighbors[i]].node = neighbors[i];
@@ -21,25 +27,23 @@ void GraphUtil::dijsktra(Graph *g, vector<DijkstraEntry> &entry, int NodeId, int
             entry[neighbors[i]].predecessor = NodeId;
         }
     }
-    // end is marked and there is no shorter path
+
 
     int distance(0), node(0);
-    bool first = true;
-    vector<DijkstraEntry>::reverse_iterator val;
-    for (val = entry.rbegin(); val != entry.rend(); val++) {
-        if (val->node != -1) {
-            if (!entry[val->node].marked) {
-                if (first) {
-                    node = val->node;
-                    distance = entry[val->node].distance;
-                    first = false;
-                } else if (distance > entry[val->node].distance) {
-                    distance = entry[val->node].distance;
-                    node = entry[val->node].node;
-                }
+    bool first(true);
+    auto getNext = [&entry, &first, &distance, &node](const DijkstraEntry &obj){
+        if(obj.node != -1 && !entry[obj.node].marked){
+            if(first){
+                node = obj.node;
+                distance = entry[obj.node].distance;
+                first = false;
+            }else if(distance > entry[obj.node].distance){
+                distance = entry[obj.node].distance;
+                node = entry[obj.node].node;
             }
         }
-    }
+    };
+    for_each(entry.rbegin(), entry.rend(), getNext);
     if (distance == 0) return;
     GraphUtil::dijsktra(g, entry, node, end, distance);
 }
