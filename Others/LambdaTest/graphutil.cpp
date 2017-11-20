@@ -1,7 +1,5 @@
 #include "graphutil.h"
 #include <stack>
-#include <iostream>
-#include <algorithm>
 
 vector<DijkstraEntry> GraphUtil::dijkstra(Graph *g, int start, int end) {
     vector<DijkstraEntry> entry((unsigned int) g->getNumberOfNodes());
@@ -14,28 +12,27 @@ void GraphUtil::dijsktra(Graph *g, vector<DijkstraEntry> &entry, int NodeId, int
     if (NodeId == end) return;
     entry[NodeId].node = NodeId;
     entry[NodeId].marked = true;
-    auto neighbors = g->getNeighbours(NodeId);
-    auto weights = g->getWeights(NodeId);
-    for (int i = 0; i < neighbors.size(); i++) {
-        if (!entry[neighbors[i]].marked && (entry[neighbors[i]].distance == -1 || entry[neighbors[i]].distance > lastSum + g->getWeights(NodeId)[i])) {
-            entry[neighbors[i]].node = neighbors[i];
-            entry[neighbors[i]].distance = lastSum + g->getWeights(NodeId)[i];
-            entry[neighbors[i]].predecessor = NodeId;
+    auto updateEntry = [&entry, &lastSum, &NodeId](const Neighbours &obj) {
+        if (!entry[obj.target].marked && (entry[obj.target].distance == -1 || entry[obj.target].distance > lastSum + obj.weight)) {
+            entry[obj.target].node = obj.target;
+            entry[obj.target].distance = lastSum + obj.weight;
+            entry[obj.target].predecessor = NodeId;
         }
-    }
-
+    };
+    for_each(g->entry[NodeId].neighbours.begin(), g->entry[NodeId].neighbours.end(), updateEntry);
 
     int distance(0), node(0);
     bool first(true);
-    auto getNext = [&entry, &first, &distance, &node](const DijkstraEntry &obj){
-        if(obj.node != -1 && !entry[obj.node].marked){
-            if(first){
+    auto getNext = [&entry, &first, &distance, &node](const DijkstraEntry &obj) {
+        if (obj.node != -1 && !entry[obj.node].marked) {
+            if (first) {
                 node = obj.node;
                 distance = entry[obj.node].distance;
                 first = false;
-            }else if(distance > entry[obj.node].distance){
+            } else if (distance > entry[obj.node].distance) {
                 distance = entry[obj.node].distance;
                 node = entry[obj.node].node;
+
             }
         }
     };
@@ -100,6 +97,7 @@ void GraphUtil::printShortestReach(Graph *g, int start, int end, bool printNext)
     }
 
     vector<DijkstraEntry> result = GraphUtil::dijkstra(g, start, end);
+
 
     // Check if end is a node (also works for other data type)
     if (find_if(result.begin(), result.end(), [&end](const DijkstraEntry &obj) { return obj.node == end; }) == result.end()) {

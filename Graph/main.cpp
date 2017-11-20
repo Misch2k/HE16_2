@@ -14,9 +14,6 @@ int main(int argc, char **argv) {
     g2->randomInit(4000, 20000, true);
 
 
-
-
-
     // Undirected Graph
     auto start = myTime::start();
     GraphUtil::printShortestReach(g, 7, 8, true) ;
