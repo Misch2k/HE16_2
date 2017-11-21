@@ -162,7 +162,7 @@ int main(int argc, char **argv) {
     int start = 3;
     int end = 8;
     const int NUMBER_OF_NODES = 10;
-    const int NUMBER_OF_CONNECTIONS = 12;
+    const int NUMBER_OF_CONNECTIONS = 14;
     //print(create(NUMBER_OF_NODES, NUMBER_OF_CONNECTIONS), NUMBER_OF_NODES);
     /*
     if(allNodeAreReachable(create(NUMBER_OF_NODES, NUMBER_OF_CONNECTIONS), NUMBER_OF_NODES, start) == true){
