@@ -202,8 +202,12 @@ bool allNodesAreReachable(vector<int> *graph, int NUMBER_OF_NODES, int start) {
     allNodesAreReachable(graph, visited, start);
 
     for (int i = 0; i < NUMBER_OF_NODES; ++i) {
-        if (!visited[i]) return false;
+        if (!visited[i]){
+            delete visited;
+            return false;
+        }
     }
+    delete visited;
     return true;
 }
 

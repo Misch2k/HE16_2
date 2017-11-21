@@ -1,12 +1,27 @@
 #include "graphutil.h"
 #include <stack>
 
+/**
+ * Return a Dijkstra entry object to analyse
+ * @param g
+ * @param start
+ * @param end
+ * @return
+ */
 vector<DijkstraEntry> GraphUtil::dijkstra(Graph *g, int start, int end) {
     vector<DijkstraEntry> entry((unsigned int) g->getNumberOfNodes());
     GraphUtil::dijsktra(g, entry, start, end);
     return entry;
 }
 
+/**
+ * Dijsktra algorithm
+ * @param g
+ * @param entry
+ * @param NodeId
+ * @param end
+ * @param lastSum
+ */
 void GraphUtil::dijsktra(Graph *g, vector<DijkstraEntry> &entry, int NodeId, int end, int lastSum) {
     // end is marked and there is no shorter path
     if (NodeId == end) return;
@@ -41,6 +56,13 @@ void GraphUtil::dijsktra(Graph *g, vector<DijkstraEntry> &entry, int NodeId, int
     GraphUtil::dijsktra(g, entry, node, end, distance);
 }
 
+/**
+ * Print the shortest path
+ * @param g
+ * @param start
+ * @param end
+ * @param printNext
+ */
 void GraphUtil::printShortestPath(Graph *g, int start, int end, bool printNext) {
     if (start < 0 || start >= g->getNumberOfNodes()) {
         cout << "Start value \"" << start << "\" is not in range!" << endl;
@@ -87,6 +109,13 @@ void GraphUtil::printShortestPath(Graph *g, int start, int end, bool printNext) 
 
 }
 
+/**
+ * Print the shortest reach
+ * @param g
+ * @param start
+ * @param end
+ * @param printNext
+ */
 void GraphUtil::printShortestReach(Graph *g, int start, int end, bool printNext) {
     if (start < 0 || start >= g->getNumberOfNodes()) {
         cout << "Start value \"" << start << "\" is not in range!" << endl;
@@ -103,13 +132,14 @@ void GraphUtil::printShortestReach(Graph *g, int start, int end, bool printNext)
     if (find_if(result.begin(), result.end(), [&end](const DijkstraEntry &obj) { return obj.node == end; }) == result.end()) {
         cout << "No connection from " << start << " to " << end << endl;
         if (printNext) {
-            auto next2 = find_if(result.begin() + start + 1, result.end(), [&end](const DijkstraEntry &obj) { return obj.marked; });
+            auto next2 = find_if(result.begin(), result.end(), [&end, &start](const DijkstraEntry &obj) {return obj.node != start && obj.node != end && obj.marked;});
             if (next2 != result.end()) {
                 cout << "Test with " << next2->node << " instead" << endl;
             }
         }
         return;
     }
+
     int counter(1);
     int temp(end);
     do {
@@ -117,4 +147,154 @@ void GraphUtil::printShortestReach(Graph *g, int start, int end, bool printNext)
         temp = result[temp].predecessor;
     } while (result[temp].node != start);
     cout << "The path between \"" << start << "\" and \"" << end << "\" costs \"" << result[end].distance << "\" and has \"" << counter << "\" stations." << endl;
+}
+
+/**
+ * print true if all nodes are reachable from starting node - recusrive
+ * @param g
+ * @param visited
+ * @param currentNode
+ */
+void GraphUtil::allNodesAreReachable(Graph *g, bool *visited, int currentNode) {
+    visited[currentNode] = true;
+    for_each(g->entry[currentNode].neighbours.begin(), g->entry[currentNode].neighbours.end(), [&](const Neighbours &obj){
+        if(!visited[obj.target]){
+            allNodesAreReachable(g, visited, obj.target);
+        }
+    });
+}
+
+/**
+ * print true if all nodes are reachable from starting node
+ * @param g
+ * @param start
+ * @return
+ */
+bool GraphUtil::allNodesAreReachable(Graph *g, int start) {
+    if(start < 0 || start > g->getNumberOfNodes()) return false;
+    auto *visited = new bool[g->getNumberOfNodes()]{false};
+    allNodesAreReachable(g, visited, start);
+    for (int i = 0; i < g->getNumberOfNodes(); ++i) {
+        if (!visited[i]){
+            delete visited;
+            return false;
+        }
+    }
+    delete visited;
+    return true;
+}
+
+/**
+ * Print all nodes which is connected with each other
+ * @param g
+ * @return
+ */
+vector<int> GraphUtil::getMotherNodes(Graph *g) {
+    vector<int> result;
+    for (int i = 0; i < g->getNumberOfNodes(); ++i) {
+        if (allNodesAreReachable(g, i)) {
+            result.push_back(i);
+        }
+    }
+    return result;
+}
+
+/**
+ * Print deep first search - recursive
+ * @param g
+ * @param visited
+ * @param currentNode
+ */
+void GraphUtil::dfs(Graph *g, bool *visited, int currentNode) {
+    visited[currentNode] = true;
+    cout << currentNode << ",";
+    for (Neighbours node : g->entry[currentNode].neighbours) {
+        if (!visited[node.target]) {
+            dfs(g, visited, node.target);
+        }
+    }
+}
+
+/**
+ * print deep first search
+ * @param g
+ */
+void GraphUtil::dfs(Graph *g) {
+    auto *visited = new bool[g->getNumberOfNodes()]{false};
+    dfs(g, visited, 0);
+    cout << endl;
+}
+
+/**
+ * print bread first search - recursive
+ * @param g
+ * @param values
+ * @param currentNode
+ * @param i
+ */
+void GraphUtil::bfs(Graph *g, deque<int> &values, int currentNode, int i) {
+    for (auto v : g->entry[currentNode].neighbours) {
+        if (find(values.begin(), values.end(), v.target) == values.end()) {
+            values.push_back(v.target);
+        };
+    }
+    if (++i < values.size()) {
+        bfs(g, values, values[i], i);
+    }
+}
+
+/**
+ * print bread first search
+ * @param g
+ */
+void GraphUtil::bfs(Graph *g) {
+    deque<int> result = {0};
+    bfs(g, result, 0, 0);
+    for (int v : result) {
+        cout << v << ", ";
+    }
+    cout << endl;
+}
+
+/**
+ * return true if this two nodes are connected - recursive
+ * @param g
+ * @param values
+ * @param currentNode
+ * @param i
+ * @param search
+ * @return
+ */
+bool GraphUtil::connected(Graph *g, deque<int> &values, int currentNode, int i, int search) {
+    for (auto v : g->entry[currentNode].neighbours) {
+        if (find(values.begin(), values.end(), v.target) == values.end()) {
+            values.push_back(v.target);
+            if (v.target == search) {
+                return true;
+            }
+        };
+    }
+    if (++i < values.size()) {
+        return GraphUtil::connected(g, values, values[i], i, search);
+    }
+    return false;
+}
+
+/**
+ * * return true if this two nodes are connected
+ * @param g
+ * @param nodeA
+ * @param nodeB
+ * @return
+ */
+bool GraphUtil::connected(Graph *g, int nodeA, int nodeB) {
+    if (nodeA < 0 || nodeA >= g->getNumberOfNodes() || nodeB < 0 || nodeB >= g->getNumberOfNodes()) return false;
+    if (nodeA == nodeB) return true;
+    deque<int> result = {nodeA};
+    bool res = GraphUtil::connected(g, result, nodeA, 0, nodeB);
+    for (int v : result) {
+        cout << v << ",";
+    }
+    cout << endl;
+    return res;
 }

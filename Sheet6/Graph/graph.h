@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -38,7 +39,8 @@ public:
         for (auto val : obj.entry) {
             stream << val.value << " : ";
             for (auto target : val.neighbours) {
-                stream << target.target << "(" << target.weight << ")\t";
+                stream << setw(5);
+                stream << target.target << "(" << target.weight << ")";
             }
             stream << endl;
         }
