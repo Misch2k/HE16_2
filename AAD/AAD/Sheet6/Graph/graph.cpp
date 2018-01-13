@@ -3,10 +3,15 @@
 //
 #include "graph.h"
 
-
 Neighbours::Neighbours(int target, int weight) : target(target), weight(weight) {
 };
 
+
+void Graph::addNode(vector<int> neighbours, vector<int> weights) {
+    for(int i = 0 ; i < neighbours.size(); i++){
+    this->entry.emplace_back(Neighbours(neighbours[i], weights[i]));
+    }
+}
 
 Graph::Graph(int nNodes, int nConnections, bool directed) {
     {
@@ -52,9 +57,6 @@ Graph::Graph(int nNodes, int nConnections, bool directed) {
     }
 }
 
-
 int Graph::getNumberOfNodes(){
     return entry.size();
 }
-
-

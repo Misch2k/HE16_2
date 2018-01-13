@@ -298,3 +298,37 @@ bool GraphUtil::connected(Graph *g, int nodeA, int nodeB) {
     cout << endl;
     return res;
 }
+
+
+void GraphUtil::hasCycle(Graph *g, deque<int> &values, int currentNode, int i, bool &cycle) {
+    for (auto v : g->entry[currentNode].neighbours) {
+        if (find(values.begin(), values.end(), v.target) == values.end()) {
+            values.push_back(v.target);
+        }else{
+            cycle = true;
+            return;
+        };
+    }
+    if (++i < values.size()) {
+        hasCycle(g, values, values[i], i, cycle);
+    }
+};
+
+bool GraphUtil::hasCycle(Graph *g) {
+    deque<int> result;
+    bool cycle = false;
+    for(auto val : g->entry){
+        if(!cycle){
+            for(auto value : result){
+                cout << value << ", ";
+            }
+            cout << endl;
+            result.clear();
+            result.push_back(val.value);
+            GraphUtil::hasCycle(g, result, val.value, 0, cycle);
+        }else{
+            return true;
+        }
+    }
+    return false;
+};

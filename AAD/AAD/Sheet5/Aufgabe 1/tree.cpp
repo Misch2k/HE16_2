@@ -388,19 +388,19 @@ int main(int argc, char **argv) {
         bt.insert(values[i]);
     }
     cout << "Initial Tree" << endl;
-    bt.printTree();
+    //bt.printTree();
     cout << "Remove: 26" << endl;
     bt.remove(26);
-    bt.printTree();
+    //bt.printTree();
     cout << "Insert: 82" << endl;
     bt.insert(82);
-    bt.printTree();
+    //bt.printTree();
     cout << "Remove: 25" << endl;
     bt.remove(25);
-    bt.printTree();
+    //bt.printTree();
     cout << "Remove: 17" << endl;
     bt.remove(17);
-    bt.printTree();
+    //bt.printTree();
     bt.postOrder();
 
     /*

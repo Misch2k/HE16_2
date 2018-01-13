@@ -1,6 +1,7 @@
 #include "graph.h"
 #include "graphutil.h"
 #include "../../myFunctions/functions.h"
+#include "graphgen.h"
 
 using namespace std;
 
@@ -12,11 +13,12 @@ int main(int argc, char **argv) {
     int connected_from(3), connected_to(5);
     bool a_allNodesArReachable(false);
     int reachable_from(5);
-    bool a_shortestReach(true);
-    int shortestReach_from(0), shortestReach_to(3);
-    bool a_printShortestPath(true);
+    bool a_shortestReach(false);
+    int shortestReach_from(0), shortestReach_to(4);
+    bool a_printShortestPath(false);
     int shortestPath_from(3), shortestPath_to(0);
     bool a_getMotherNodes(false);
+    bool a_hasCycle(true);
 
     srand(12);
 
@@ -38,7 +40,7 @@ int main(int argc, char **argv) {
         cout << *graph << endl;
         cout << "=================" << endl << endl;
     }
-    if (a_allNodesArReachable || a_printShortestPath || a_getMotherNodes) {
+    if (a_allNodesArReachable || a_printShortestPath || a_getMotherNodes || a_hasCycle) {
         cout << "Directed graph" << endl;
         cout << "=================" << endl;
         cout << *dirGraph << endl;
@@ -101,6 +103,22 @@ int main(int argc, char **argv) {
             cout << val << ", ";
         }
         cout << endl;
+        cout << "=================" << endl << endl;
+    }
+
+    if(a_hasCycle){
+        cout << "Get mother nodes" << endl;
+        cout << "=================" << endl;
+        auto result = GraphUtil::hasCycle(GraphGenerator::createGraph1());
+        cout << "The Graph " << (result ? "has a cycle" : "don't hava a cycle") << endl;
+        result = GraphUtil::hasCycle(GraphGenerator::createGraph2());
+        cout << "The Graph " << (result ? "has a cycle" : "don't hava a cycle") << endl;
+        result = GraphUtil::hasCycle(GraphGenerator::createGraph3());
+        cout << "The Graph " << (result ? "has a cycle" : "don't hava a cycle") << endl;
+        result = GraphUtil::hasCycle(GraphGenerator::createGraph4());
+        cout << "The Graph " << (result ? "has a cycle" : "don't hava a cycle") << endl;
+        result = GraphUtil::hasCycle(GraphGenerator::createGraph5());
+        cout << "The Graph " << (result ? "has a cycle" : "don't hava a cycle") << endl;
         cout << "=================" << endl << endl;
     }
 

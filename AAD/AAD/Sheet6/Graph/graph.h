@@ -34,7 +34,7 @@ public:
     vector<Entry> entry;
     Graph(int nNodes, int nConnections, bool directed = false);
     int getNumberOfNodes();
-
+    void addNode(vector<int> neighbours, vector<int> weights);
     friend ostream &operator<<(std::ostream &stream, const Graph &obj) {
         for (auto val : obj.entry) {
             stream << val.value << " : ";

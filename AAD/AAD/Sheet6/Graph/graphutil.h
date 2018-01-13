@@ -22,6 +22,7 @@ public:
     static void dfs(Graph *g);
     static void bfs(Graph *g);
     static bool connected(Graph *g, int nodeA, int nodeB);
+    static bool hasCycle(Graph *g);
 
 private:
     static vector<DijkstraEntry> dijkstra(Graph *g, int start, int end = -1);
@@ -30,6 +31,7 @@ private:
     static void dfs(Graph *g, bool *visited, int currentNode);
     static void bfs(Graph *g, deque<int> &values, int currentNode, int i);
     static bool connected(Graph *g, deque<int> &values, int currentNode, int i, int search);
+    static void hasCycle(Graph *g, deque<int> &values, int currentNode, int i, bool &cycle);
 };
 
 #endif
