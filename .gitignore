@@ -41,3 +41,11 @@
 # Others
 *Achim
 *JFF
+
+# QT Specific
+*build*
+.pro
+*.pro.user
+*release
+Makefile*
+*.stash
