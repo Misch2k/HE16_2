@@ -8,6 +8,8 @@ class CCCWindow : public QMainWindow
 {
 public:
     CCCWindow();
+private:
+    CreditCardCheck *widget;
 };
 
 #endif // CCCWINDOW_H

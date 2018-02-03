@@ -3,5 +3,6 @@
 
 CCCWindow::CCCWindow()
 {
-    this->setCentralWidget(new CreditCardCheck);
+    this->widget = new CreditCardCheck;
+    this->setCentralWidget(widget);
 }
