@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>Images/amex.gif</file>
+        <file>Images/master.gif</file>
+        <file>Images/visa.gif</file>
+        <file>Images/false.gif</file>
+        <file>Images/false.png</file>
+        <file>Images/cc.jpg</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>
