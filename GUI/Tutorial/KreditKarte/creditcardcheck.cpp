@@ -1,6 +1,7 @@
 #include "creditcardcheck.h"
 #include "creditcardcheck.h"
 #include "eventhandler.h"
+#include "cccmodel.h"
 
 CreditCardCheck::CreditCardCheck()
 {
@@ -12,15 +13,24 @@ CreditCardCheck::CreditCardCheck()
     initGridLayout();
     // Events
     EventHandler *eventHandler = new EventHandler(this);
-    connect(validButton, SIGNAL(clicked(bool)), eventHandler, SLOT(onCheckButtonClicked()));
-    connect(cardNumber, SIGNAL(editingFinished()), eventHandler, SLOT(onCheckButtonClicked()));
+    connect(validButton, SIGNAL(clicked(bool)), this, SLOT(updateDataModel()));
+    connect(cardNumber,SIGNAL(editingFinished()), this, SLOT(updateDataModel()));
+    connect(cardMonth, SIGNAL(activated(int)), this, SLOT(updateDataModel()));
+    connect(cardYear, SIGNAL(activated(int)), this, SLOT(updateDataModel()));
+    connect(cardMonth, SIGNAL(activated(int)), eventHandler, SLOT(validateCard()));
+    connect(cardYear, SIGNAL(activated(int)), eventHandler, SLOT(validateCard()));
+    connect(cardNumber, SIGNAL(editingFinished()), eventHandler, SLOT(validateCard()));
+    connect(this, SIGNAL(runValidation()), eventHandler, SLOT(validateCard()));
+    connect(eventHandler, SIGNAL(companyChanged()), this, SLOT(updateCompany()));
+    connect(eventHandler, SIGNAL(setValidation(bool)), this, SLOT(setValidation(bool)));
+    qDebug() << "Initialisatzion of CreditCardCheck";
 }
 
 void CreditCardCheck::init(){
     // INIT ALL OBJECTS
     this->cardNumber = new QLineEdit(this);
     QRegExp rx("^([0-9]{4}[ -]){3}[0-9]{4}$");
-    cardNumber->setInputMask("dddd dddd dddd dddd;_");
+    cardNumber->setInputMask("9999 9999 9999 9999;_");
     this->cardMonth = new QComboBox(this);
     this->cardYear = new QComboBox(this);
     this->messageBox = new QLabel("NOT VALID", this);
@@ -80,15 +90,12 @@ void CreditCardCheck::initGridLayout()
 
 }
 
-void CreditCardCheck::setImage(QPixmap url)
+void CreditCardCheck::updateDataModel()
 {
-    QPixmap img(url);
-    companyImage->setPixmap(img);
-}
-
-QString CreditCardCheck::getNumberText()
-{
-    return this->cardNumber->text();
+    CCCModel::getInstance().setCardNumber(this->cardNumber->text());
+    CCCModel::getInstance().setMonth(this->cardMonth->currentText().toInt());
+    CCCModel::getInstance().setYear(this->cardYear->currentText().toInt());
+    emit runValidation();
 }
 
 void CreditCardCheck::setValidation(bool valid){
@@ -106,5 +113,11 @@ void CreditCardCheck::setValidation(bool valid){
                     );
 
     }
+}
+
+void CreditCardCheck::updateCompany()
+{
+    qDebug() << "updateCompany()";
+    this->companyImage->setPixmap(CCCModel::getInstance().getCompanyImage());
 }
 

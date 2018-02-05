@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2018-01-20T08:37:22
+# Project created by QtCreator 2018-02-04T17:59:19
 #
 #-------------------------------------------------
 
@@ -8,12 +8,8 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = KreditKarte
+TARGET = BinaryTree
 TEMPLATE = app
-CONFIG += console
-
-# Uncomment this Lines to Hide all Debug Messages
-# DEFINES += QT_NO_DEBUG_OUTPUT
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -29,18 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    creditcardcheck.cpp \
-    eventhandler.cpp \
-    cccwindow.cpp \
-    cccmodel.cpp
+        mainwindow.cpp
 
 HEADERS += \
-    creditcardcheck.h \
-    eventhandler.h \
-    cccwindow.h \
-    cccmodel.h
-
-FORMS +=
-
-RESOURCES += \
-    res.qrc
+        mainwindow.h

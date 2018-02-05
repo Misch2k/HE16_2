@@ -12,10 +12,15 @@ class EventHandler : public QObject
 private:
     CreditCardCheck *parent;
     void checkCompany(QString cardNumber);
+    bool lunAlgo(QString Number);
+    bool checkDate(int month, int year);
 public:
     EventHandler(CreditCardCheck *parent);
 public slots:
-    void onCheckButtonClicked();
+    void validateCard();
+signals:
+    void companyChanged();
+    bool setValidation(bool);
 };
 
 #endif // EVENTHANDLER_H

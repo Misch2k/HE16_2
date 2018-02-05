@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2018-01-20T08:37:22
+# Project created by QtCreator 2018-02-04T17:59:56
 #
 #-------------------------------------------------
 
@@ -8,11 +8,10 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = KreditKarte
+TARGET = BinaryTree
 TEMPLATE = app
 CONFIG += console
 
-# Uncomment this Lines to Hide all Debug Messages
 # DEFINES += QT_NO_DEBUG_OUTPUT
 
 # The following define makes your compiler emit warnings if you use
@@ -29,18 +28,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    creditcardcheck.cpp \
+        mainwindow.cpp \
+    centerwidget.cpp \
     eventhandler.cpp \
-    cccwindow.cpp \
-    cccmodel.cpp
+    model.cpp \
+    binarysearchtree.old.cpp \
+    binarysearchtree.cpp
 
 HEADERS += \
-    creditcardcheck.h \
+        mainwindow.h \
+    centerwidget.h \
     eventhandler.h \
-    cccwindow.h \
-    cccmodel.h
+    model.h \
+    binarysearchtree.old.h \
+    binarysearchtree.h
 
-FORMS +=
-
-RESOURCES += \
-    res.qrc
+DISTFILES += \
+    TreeTemplate

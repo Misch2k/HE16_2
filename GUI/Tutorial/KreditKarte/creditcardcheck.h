@@ -31,9 +31,13 @@ private:
     void initGridLayout();
 public:
     CreditCardCheck();
-    QString getNumberText();
+public slots:
+    void updateCompany();
     void setValidation(bool);
-    void setImage(QPixmap);
+private slots:
+    void updateDataModel();
+signals:
+    void runValidation();
 };
 
 #endif // CREDITCARDCHECK_H
