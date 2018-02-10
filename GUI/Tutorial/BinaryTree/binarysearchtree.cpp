@@ -6,7 +6,7 @@
 BinarySearchTree::BinarySearchTree(QGridLayout *parentLayout, QWidget *parent) : QWidget(parent)
 {
     this->parentLayout = parentLayout;
-    tree = new std::map<int, QLabel*>;
+    tree = new std::map<int, NodeWidget*>;
     size = 0;
 }
 
@@ -18,14 +18,14 @@ BinarySearchTree::~BinarySearchTree()
 void BinarySearchTree::insertItem(int v, int index)
 {
     if(!tree->count(index)){
-        tree->insert(std::pair<int, QLabel*>(index, new QLabel(QString::number(v))));
+        tree->insert(std::pair<int, NodeWidget*>(index, new NodeWidget(this, index, v)));
         parentLayout->addWidget(tree->at(index));
         //print();
         size++;
         updateTree();
         //qDebug() << "Insert " << v << " at Position " << index;
     }else{
-        if(tree->at(index)->text().toInt() >= v){
+        if(tree->at(index)->getValue() >= v){
             insertItem(v, getLeft(index));
         }else{
             insertItem(v, getRight(index));
@@ -35,7 +35,7 @@ void BinarySearchTree::insertItem(int v, int index)
 
 void BinarySearchTree::deleteAllItems()
 {
-    std::map<int, QLabel*>::iterator it;
+    std::map<int, NodeWidget*>::iterator it;
 
     for(it = tree->begin(); it != tree->end(); it++){
         parentLayout->removeWidget(it->second);
@@ -82,7 +82,7 @@ void BinarySearchTree::deleteItemRec(int index)
     int pos = getRightMember(index);
     if(pos != -1)
     {
-        tree->at(index)->setText(tree->at(pos)->text());
+        tree->at(index)->setValue(tree->at(pos)->getValue());
         deleteItemRec(pos);
     }else{
         delete tree->at(index);
@@ -116,10 +116,10 @@ int BinarySearchTree::findItem(int v, int index)
 {
     if(!tree->count(index)){
         return -1;
-    }else if(tree->at(index)->text().toInt() == v){
+    }else if(tree->at(index)->getValue() == v){
         return index;
     }else{
-        if(tree->at(index)->text().toInt() > v){
+        if(tree->at(index)->getValue() > v){
             return findItem(v, getLeft(index));
         }else{
             return findItem(v, getRight(index));
@@ -128,12 +128,22 @@ int BinarySearchTree::findItem(int v, int index)
 }
 
 void BinarySearchTree::print(){
-    std::map<int, QLabel*>::iterator it;
+    std::map<int, NodeWidget*>::iterator it;
     for(it = tree->begin(); it != tree->end(); it++){
         //qDebug() << it->second->text();
     }
     //qDebug() << "";
 
+}
+
+void BinarySearchTree::deleteThisItem(int index)
+{
+    this->deleteItemRec(index);
+}
+
+void BinarySearchTree::updateIN()
+{
+    emit updateOut();
 }
 
 
@@ -149,7 +159,7 @@ void BinarySearchTree::updateTree()
     int t_height = getHeight();
     //qDebug() << t_width * 2 << " : " << t_height;
     if(t_height > 0){
-        std::map<int, QLabel*>::iterator it;
+        std::map<int, NodeWidget*>::iterator it;
         for(it = tree->begin(); it != tree->end(); it++){
             parentLayout->removeWidget(it->second);
         }
@@ -159,16 +169,11 @@ void BinarySearchTree::updateTree()
 
 void BinarySearchTree::generateTree(int index, int height, Cord cord)
 {
-
-    //qDebug() << "Item: " << tree->at(index)->text() << "\n  Height: " << height << "\n  Width: " << cord.pos() << "\n  Index:" << index;
-    //print();
     parentLayout->addWidget(tree->at(index), height, cord.pos());
     if(tree->count(getLeft(index))){
-        //qDebug() << "Left way";
         generateTree(getLeft(index), height+1, Cord(cord.left, cord.pos()));
     }
     if(tree->count(getRight(index))){
-        //qDebug() << "Right way";
         generateTree(getRight(index), height+1, Cord(cord.pos(), cord.right));
     }
 }

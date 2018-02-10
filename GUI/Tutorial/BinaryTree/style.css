@@ -1,0 +1,35 @@
+*[class="root"] {
+	width: 20px;
+	height: 20px;
+	padding: 5px;
+	margin: 0;
+        border-radius: 15px;
+	background-color: rgba(255,255,255,100);
+	border: 2px solid black;
+}
+*[class="root"]::focus:pressed {
+	background-color: rgba(255,255,255,75);
+}
+*[class="root"]:focus{
+	background-color: rgba(255,255,255,75);
+}
+*[class="root"]:hover {
+	background-color: rgba(255,255,255,75);
+}
+*[class="option"] {
+	font-size: 10px;
+	margin:0;
+	width: 30px;
+    border-radius: 10px;
+	background-color: rgba(0,0,0,100);
+	color: white;
+}
+*[class="option"]::focus:pressed {
+	background-color: rgba(0,0,0,80);
+}
+*[class="option"]:focus{
+	background-color: rgba(0,0,0,80);
+}
+*[class="option"]:hover {
+	background-color: rgba(0,0,0,80);
+}

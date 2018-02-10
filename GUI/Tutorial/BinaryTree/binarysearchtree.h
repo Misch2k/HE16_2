@@ -1,6 +1,7 @@
 #ifndef BINARYSEARCHTREE_H
 #define BINARYSEARCHTREE_H
 
+#include "nodewidget.h"
 #include <QObject>
 #include <QWidget>
 #include <QGridLayout>
@@ -32,12 +33,12 @@ public:
     void deleteItem(int v);
     int getHeight();
     int getSize();
+    std::map<int, NodeWidget*> *tree;
 private:
     void updateTree();
     void generateTree(int index, int height, Cord cord);
     int size;
     QGridLayout *parentLayout;
-    std::map<int, QLabel*> *tree;
     int getRight(int v);
     int getLeft(int v);
     int getParent(int v);
@@ -46,6 +47,12 @@ private:
     int findItem(int v, int index = 0);
     int getRightMember(int index, bool left = true, bool first = true);
     void print();
+signals:
+    void updateOut();
+public slots:
+    void deleteThisItem(int index);
+    void updateIN();
+
 };
 
 #endif // BINARYSEARCHTREE_H

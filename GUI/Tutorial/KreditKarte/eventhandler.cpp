@@ -48,13 +48,28 @@ EventHandler::EventHandler(CreditCardCheck *parent) : parent(parent)
 
 bool EventHandler::lunAlgo(QString Number)
 {
+
+    // To vector
+    Number.replace(" ", "");
+
+    std::vector<int> container;
+    std::for_each(Number.rbegin(), Number.rend(), [&container](QChar tempChar){container.push_back(tempChar.digitValue());});
+
+
+    for(auto n : container){
+        qDebug() << n;
+    }
+
+
     Number.replace(" ", "");
     qDebug() << "Number after Replace: " << Number << endl;
     if (Number.length() != 16) {
         return false;
     }
     int tmp = 0;
+
     reverse(Number.rbegin(), Number.rend());
+    /*
     std::string nr = Number.toStdString();
     for(unsigned int i = 0; i < nr.length(); i+=2){
         tmp += nr.at(i) - '0';
@@ -66,6 +81,7 @@ bool EventHandler::lunAlgo(QString Number)
     }
     qDebug() << tmp;
     return tmp % 10 == 0;
+    */
 }
 
 void EventHandler::validateCard()

@@ -19,7 +19,9 @@ class CenterWidget : public QWidget
     Q_OBJECT
 public:
     explicit CenterWidget(QWidget *parent = nullptr);
+    ~CenterWidget();
     int getNumberInput();
+    void paintEvent(QPaintEvent *);
 private:
     void init();
     void initLayout();
@@ -47,6 +49,7 @@ public slots:
     void insertItem();
     void deleteItem1();
     void deleteAllItem();
+    void updatePaint();
 };
 
 #endif // CENTERWIDGET_H
