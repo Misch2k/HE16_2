@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2018-02-04T17:59:56
+# Project created by QtCreator 2018-03-03T07:28:29
 #
 #-------------------------------------------------
 
@@ -8,11 +8,8 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = BinaryTree
+TARGET = Points
 TEMPLATE = app
-CONFIG += console
-
-# DEFINES += QT_NO_DEBUG_OUTPUT
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -29,23 +26,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    centerwidget.cpp \
-    eventhandler.cpp \
-    model.cpp \
-    binarysearchtree.cpp \
-    nodewidget.cpp
+    example.cpp \
+    thread.cpp
 
 HEADERS += \
         mainwindow.h \
-    centerwidget.h \
-    eventhandler.h \
-    model.h \
-    binarysearchtree.h \
-    nodewidget.h
+    example.h \
+    thread.h
 
-DISTFILES += \
-    TreeTemplate \
-    style.css
-
-RESOURCES += \
-    resources.qrc
+FORMS +=

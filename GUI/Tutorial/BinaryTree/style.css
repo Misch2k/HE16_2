@@ -7,14 +7,17 @@
 	background-color: rgba(255,255,255,100);
 	border: 2px solid black;
 }
-*[class="root"]::focus:pressed {
+*[class="root"]:focus:pressed {
 	background-color: rgba(255,255,255,75);
+        color: #000000;
 }
 *[class="root"]:focus{
 	background-color: rgba(255,255,255,75);
+        color: #ffffff;
 }
 *[class="root"]:hover {
-	background-color: rgba(255,255,255,75);
+        background-color: rgba(255,255,255,100);
+        color: #ffffff;
 }
 *[class="option"] {
 	font-size: 10px;
@@ -24,8 +27,8 @@
 	background-color: rgba(0,0,0,100);
 	color: white;
 }
-*[class="option"]::focus:pressed {
-	background-color: rgba(0,0,0,80);
+*[class="option"]:focus:pressed {
+        background-color: rgba(255,0,0,80);
 }
 *[class="option"]:focus{
 	background-color: rgba(0,0,0,80);
